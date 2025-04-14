@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SERENE-ASANA-AI | Your AI Yoga Assistant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 4px solid #3498db;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-blue-600 text-white p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">SERENE-ASANA-AI</h1>
+            <div class="flex gap-4" id="navLinks">
+                <a href="#home" class="hover:text-blue-200">Home</a>
+                <a href="#about" class="hover:text-blue-200">About</a>
+                <a href="#contact" class="hover:text-blue-200">Contact</a>
+                <button id="loginBtn" class="hover:text-blue-200">Login</button>
+                <button id="registerBtn" class="hover:text-blue-200">Register</button>
+                <button id="logoutBtn" class="hover:text-blue-200 hidden">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto p-4">
+        <!-- Auth Forms -->
+        <div id="authForms" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <div class="bg-white p-8 rounded-lg max-w-md w-full">
+                <!-- Login Form -->
+                <form id="loginForm" class="hidden space-y-4">
+                    <h2 class="text-2xl font-bold text-blue-600">Login</h2>
+                    <input type="email" placeholder="Email" class="w-full p-2 border rounded" required>
+                    <input type="password" placeholder="Password" class="w-full p-2 border rounded" required>
+                    <button type="submit" class="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">Login</button>
+                </form>
+
+                <!-- Register Form -->
+                <form id="registerForm" class="hidden space-y-4">
+                    <h2 class="text-2xl font-bold text-blue-600">Register</h2>
+                    <input type="text" placeholder="Name" class="w-full p-2 border rounded" required>
+                    <input type="email" placeholder="Email" class="w-full p-2 border rounded" required>
+                    <input type="password" placeholder="Password" class="w-full p-2 border rounded" required>
+                    <button type="submit" class="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">Register</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- AI Yoga Assistant Section -->
+        <div id="yogaAssistant" class="mt-8">
+            <h2 class="text-3xl font-bold text-blue-600 mb-4">AI Yoga Assistant</h2>
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="w-full md:w-1/2">
+                    <textarea id="userProblem" placeholder="Describe your problem or condition..." class="w-full p-4 border rounded h-32"></textarea>
+                    <button id="getRecommendation" class="mt-4 bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">
+                        Get Recommendations
+                    </button>
+                    <div class="loader mt-4" id="loader"></div>
+                </div>
+                <div class="w-full md:w-1/2">
+                    <div id="recommendationResult" class="bg-white p-6 rounded-lg shadow-md hidden">
+                        <h3 class="text-xl font-bold text-blue-600 mb-4">AI Recommendations</h3>
+                        <div id="recommendationText" class="mb-4"></div>
+                        <div id="videoRecommendations" class="space-y-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Section -->
+        <section id="about" class="mt-16">
+            <h2 class="text-3xl font-bold text-blue-600 mb-4">About Us</h2>
+            <p class="text-gray-700">SERENE-ASANA-AI combines ancient yoga wisdom with modern AI technology to provide personalized yoga recommendations. Our platform helps you find the perfect asanas for your specific needs and conditions.</p>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="mt-16">
+            <h2 class="text-3xl font-bold text-blue-600 mb-4">Contact Us</h2>
+            <form id="contactForm" class="max-w-lg space-y-4">
+                <input type="text" placeholder="Name" class="w-full p-2 border rounded" required>
+                <input type="email" placeholder="Email" class="w-full p-2 border rounded" required>
+                <textarea placeholder="Message" class="w-full p-2 border rounded h-32" required></textarea>
+                <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Send Message</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-blue-600 text-white mt-16 p-8">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <h3 class="text-xl font-bold mb-4">SERENE-ASANA-AI</h3>
+                <p>Your AI-powered yoga companion for a healthier life.</p>
+            </div>
+            <div>
+                <h3 class="text-xl font-bold mb-4">Follow Us</h3>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-blue-200"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="hover:text-blue-200"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="hover:text-blue-200"><i class="bi bi-twitter"></i></a>
+                </div>
+            </div>
+            <div>
+                <h3 class="text-xl font-bold mb-4">Newsletter</h3>
+                <form class="flex gap-2">
+                    <input type="email" placeholder="Your email" class="p-2 rounded flex-1 text-black">
+                    <button class="bg-white text-blue-600 px-4 py-2 rounded hover:bg-blue-100">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // DOM Elements
+        const authForms = document.getElementById('authForms');
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const loginBtn = document.getElementById('loginBtn');
+        const registerBtn = document.getElementById('registerBtn');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const getRecommendationBtn = document.getElementById('getRecommendation');
+        const userProblem = document.getElementById('userProblem');
+        const recommendationResult = document.getElementById('recommendationResult');
+        const recommendationText = document.getElementById('recommendationText');
+        const videoRecommendations = document.getElementById('videoRecommendations');
+        const loader = document.getElementById('loader');
+
+        // Auth State
+        let isLoggedIn = false;
+
+        // Event Listeners
+        loginBtn.addEventListener('click', () => showAuthForm('login'));
+        registerBtn.addEventListener('click', () => showAuthForm('register'));
+        logoutBtn.addEventListener('click', handleLogout);
+
+        loginForm.addEventListener('submit', handleLogin);
+        registerForm.addEventListener('submit', handleRegister);
+        getRecommendationBtn.addEventListener('click', getAIRecommendation);
+
+        // Auth Functions
+        function showAuthForm(type) {
+            authForms.classList.remove('hidden');
+            loginForm.classList.add('hidden');
+            registerForm.classList.add('hidden');
+            if (type === 'login') {
+                loginForm.classList.remove('hidden');
+            } else {
+                registerForm.classList.remove('hidden');
+            }
+        }
+
+        async function handleLogin(e) {
+            e.preventDefault();
+            const email = loginForm.querySelector('input[type="email"]').value;
+            const password = loginForm.querySelector('input[type="password"]').value;
+
+            try {
+                const response = await fetch('https://r0c8kgwocscg8gsokogwwsw4.zetaverse.one/mongodb', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer Gd6y5d1UORazt4XrgWppXO8RpnP2',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        appSlug: 'serene-asana-123',
+                        action: 'read',
+                        collection: 'users',
+                        conditions: { email, password }
+                    })
+                });
+
+                const data = await response.json();
+                if (data.result.length > 0) {
+                    isLoggedIn = true;
+                    updateAuthUI();
+                    authForms.classList.add('hidden');
+                    alert('Login successful!');
+                } else {
+                    alert('Invalid credentials!');
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                alert('Login failed!');
+            }
+        }
+
+        async function handleRegister(e) {
+            e.preventDefault();
+            const name = registerForm.querySelector('input[type="text"]').value;
+            const email = registerForm.querySelector('input[type="email"]').value;
+            const password = registerForm.querySelector('input[type="password"]').value;
+
+            try {
+                const response = await fetch('https://r0c8kgwocscg8gsokogwwsw4.zetaverse.one/mongodb', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer Gd6y5d1UORazt4XrgWppXO8RpnP2',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        appSlug: 'serene-asana-123',
+                        action: 'create',
+                        collection: 'users',
+                        data: { name, email, password }
+                    })
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    alert('Registration successful! Please login.');
+                    showAuthForm('login');
+                } else {
+                    alert('Registration failed!');
+                }
+            } catch (error) {
+                console.error('Registration error:', error);
+                alert('Registration failed!');
+            }
+        }
+
+        function handleLogout() {
+            isLoggedIn = false;
+            updateAuthUI();
+        }
+
+        function updateAuthUI() {
+            if (isLoggedIn) {
+                loginBtn.classList.add('hidden');
+                registerBtn.classList.add('hidden');
+                logoutBtn.classList.remove('hidden');
+            } else {
+                loginBtn.classList.remove('hidden');
+                registerBtn.classList.remove('hidden');
+                logoutBtn.classList.add('hidden');
+            }
+        }
+
+        // AI Recommendation Function
+        async function getAIRecommendation() {
+            if (!isLoggedIn) {
+                alert('Please login to get recommendations!');
+                return;
+            }
+
+            const problem = userProblem.value.trim();
+            if (!problem) {
+                alert('Please describe your problem or condition!');
+                return;
+            }
+
+            loader.style.display = 'block';
+            recommendationResult.classList.add('hidden');
+
+            try {
+                const response = await fetch('https://r0c8kgwocscg8gsokogwwsw4.zetaverse.one/ai', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer Gd6y5d1UORazt4XrgWppXO8RpnP2',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        messages: [{
+                            role: 'user',
+                            content: [{
+                                type: 'text',
+                                text: `As a yoga expert, please suggest yoga asanas and their benefits for the following condition: ${problem}. Also suggest some beginner-friendly poses.`
+                            }]
+                        }]
+                    })
+                });
+
+                const data = await response.json();
+                recommendationText.innerHTML = `<p class="mb-4">${data.message}</p>`;
+                
+                // Simulated video recommendations (in real app, would be based on AI response)
+                videoRecommendations.innerHTML = `
+                    <div class="text-lg font-bold mb-2">Recommended Videos:</div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <iframe class="w-full aspect-video" src="https://www.youtube.com/embed/v7AYKMP6rOE" frameborder="0" allowfullscreen></iframe>
+                        <iframe class="w-full aspect-video" src="https://www.youtube.com/embed/hJbRpHZr_d0" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                `;
+
+                recommendationResult.classList.remove('hidden');
+            } catch (error) {
+                console.error('AI recommendation error:', error);
+                alert('Failed to get recommendations. Please try again.');
+            } finally {
+                loader.style.display = 'none';
+            }
+        }
+
+        // Initialize UI
+        updateAuthUI();
+    </script>
+<script>document.body.addEventListener('wheel', e => { if (!e.ctrlKey) return; e.preventDefault(); return }, { passive: false })</script>
+	</body>
+</html>
